@@ -4,7 +4,7 @@
   "description": "###### tags: `netology` `advanced js`",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack-dev-server --mode development",
     "build": "babel src -d dist",
     "lint": "eslint ."
@@ -23,6 +23,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
+    "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
     "eslint": "^6.8.0",
@@ -30,6 +31,7 @@
     "eslint-plugin-import": "^2.20.2",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.0.1",
     "mini-css-extract-plugin": "^0.9.0",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
