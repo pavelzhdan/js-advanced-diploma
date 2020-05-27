@@ -1,4 +1,9 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable arrow-parens */
 import { calcHealthLevel, calcTileType } from './utils';
+import { computerTeam, playersTeam } from './characters/teams';
+import generateTeam from './generators';
 
 export default class GamePlay {
   constructor() {
@@ -61,7 +66,21 @@ export default class GamePlay {
     }
 
     this.cells = Array.from(this.boardEl.children);
+
+    let plauersUnitsQuantity;
+    let computersUnitsQuantity;
+    let maxLevel;
+
+    if (theme === 'prairie') {
+      plauersUnitsQuantity = 2;
+      computersUnitsQuantity = 2;
+      maxLevel = 1;
+    }
+    generateTeam(computerTeam, maxLevel, computersUnitsQuantity);
+    generateTeam(playersTeam, maxLevel, computersUnitsQuantity);
+    
   }
+
 
   /**
    * Draws positions (with chars) on boardEl
@@ -90,6 +109,7 @@ export default class GamePlay {
       cellEl.appendChild(charEl);
     }
   }
+
 
   /**
    * Add listener to mouse enter for cell
@@ -203,7 +223,7 @@ export default class GamePlay {
   hideCellTooltip(index) {
     this.cells[index].title = '';
   }
-  
+
   showDamage(index, damage) {
     return new Promise((resolve) => {
       const cell = this.cells[index];
