@@ -1,9 +1,23 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable arrow-parens */
 import { calcHealthLevel, calcTileType } from './utils';
-import { computerTeam, playersTeam } from './characters/teams';
+import computerTeam, { playersTeam as team } from './characters/teams';
+
 import generateTeam from './generators';
+
+import Character from './Character';
+
+class Magician extends Character {
+  constructor(level, type = 'magician') {
+    super(level, type);
+    this.attack = 10;
+    this.defence = 40;
+    this.health = 100;
+  }
+}
+
 
 export default class GamePlay {
   constructor() {
@@ -77,8 +91,11 @@ export default class GamePlay {
       maxLevel = 1;
     }
     generateTeam(computerTeam, maxLevel, computersUnitsQuantity);
-    generateTeam(playersTeam, maxLevel, computersUnitsQuantity);
-    
+    generateTeam(team, maxLevel, plauersUnitsQuantity);
+
+    const pl = new Magician(1);
+    const pstn = { pl, position: 1 };
+    this.redrawPositions(pstn);
   }
 
 

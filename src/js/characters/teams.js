@@ -8,4 +8,5 @@ import Vampire from './Vampire';
 const computerTeam = [Bowman, Magician, Swordsman];
 const playersTeam = [Daemon, Undead, Vampire];
 
-export default { computerTeam, playersTeam };
+export default computerTeam;
+export { playersTeam };
