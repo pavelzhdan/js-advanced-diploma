@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-syntax */
@@ -6,18 +7,6 @@ import { calcHealthLevel, calcTileType } from './utils';
 import computerTeam, { playersTeam as team } from './characters/teams';
 
 import generateTeam from './generators';
-
-import Character from './Character';
-
-class Magician extends Character {
-  constructor(level, type = 'magician') {
-    super(level, type);
-    this.attack = 10;
-    this.defence = 40;
-    this.health = 100;
-  }
-}
-
 
 export default class GamePlay {
   constructor() {
@@ -90,12 +79,29 @@ export default class GamePlay {
       computersUnitsQuantity = 2;
       maxLevel = 1;
     }
-    generateTeam(computerTeam, maxLevel, computersUnitsQuantity);
-    generateTeam(team, maxLevel, plauersUnitsQuantity);
 
-    const pl = new Magician(1);
-    const pstn = { pl, position: 1 };
-    this.redrawPositions(pstn);
+    const teamOfAll = [];
+    const playerPosition = [0, 1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57];
+    const computerPosition = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 62, 63];
+    const randomPositions = [];
+
+    function generatePosition(positionArray) {
+      let randomPosition = positionArray[Math.floor(Math.random() * positionArray.length)];
+      if (randomPositions.includes(randomPosition)) {
+        randomPositions.forEach(element => positionArray.splice(positionArray.indexOf(element), 1));
+        randomPosition = positionArray[Math.floor(Math.random() * positionArray.length)];
+      }
+      randomPositions.push();
+      return randomPosition;
+    }
+
+    for (let i = 0; i < computersUnitsQuantity; i += 1) {
+      teamOfAll.push({ position: generatePosition(computerPosition), character: generateTeam(computerTeam, maxLevel, computersUnitsQuantity) });
+    }
+    for (let i = 0; i < plauersUnitsQuantity; i += 1) {
+      teamOfAll.push({ position: generatePosition(playerPosition), character: generateTeam(team, maxLevel, plauersUnitsQuantity) });
+    }
+    this.redrawPositions(teamOfAll);
   }
 
 

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /**
  * Generates random characters
  *
@@ -7,14 +8,17 @@
  */
 export function* characterGenerator(allowedTypes, maxLevel) {
   const randomElement = Math.floor(Math.random() * allowedTypes.length);
-  const randomLevel = Math.floor(Math.random() * maxLevel);
-
-  yield allowedTypes[randomElement];
+  const ChosenCharacter = allowedTypes[randomElement];
+  let randomLevel = Math.floor(Math.random() * maxLevel);
+  if (randomLevel === 0) {
+    randomLevel = 1;
+  }
+  yield new ChosenCharacter(randomLevel);
 }
 
-export function generateTeam(allowedTypes, maxLevel, characterCount) {
-  for (let i = 0; i <= characterCount; i += 1) {
-    return characterGenerator(allowedTypes, maxLevel);
+export default function generateTeam(allowedTypes, maxLevel, characterCount) {
+  for (let i = 1; i < characterCount; i += 1) {
+    return characterGenerator(allowedTypes, maxLevel).next().value;
   }
   // TODO: write logic here
 }
