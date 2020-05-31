@@ -4,10 +4,9 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable arrow-parens */
 import { calcHealthLevel, calcTileType } from './utils';
-import computerTeam, { playersTeam as team } from './characters/teams';
+import createTeam from './teamsCreation';
 
-import generateTeam from './generators';
-
+export const teamOfAll = [];
 export default class GamePlay {
   constructor() {
     this.boardSize = 8;
@@ -69,39 +68,7 @@ export default class GamePlay {
     }
 
     this.cells = Array.from(this.boardEl.children);
-
-    let plauersUnitsQuantity;
-    let computersUnitsQuantity;
-    let maxLevel;
-
-    if (theme === 'prairie') {
-      plauersUnitsQuantity = 2;
-      computersUnitsQuantity = 2;
-      maxLevel = 1;
-    }
-
-    const teamOfAll = [];
-    const playerPosition = [0, 1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57];
-    const computerPosition = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 62, 63];
-    const randomPositions = [];
-
-    function generatePosition(positionArray) {
-      let randomPosition = positionArray[Math.floor(Math.random() * positionArray.length)];
-      if (randomPositions.includes(randomPosition)) {
-        randomPositions.forEach(element => positionArray.splice(positionArray.indexOf(element), 1));
-        randomPosition = positionArray[Math.floor(Math.random() * positionArray.length)];
-      }
-      randomPositions.push();
-      return randomPosition;
-    }
-
-    for (let i = 0; i < computersUnitsQuantity; i += 1) {
-      teamOfAll.push({ position: generatePosition(computerPosition), character: generateTeam(computerTeam, maxLevel, computersUnitsQuantity) });
-    }
-    for (let i = 0; i < plauersUnitsQuantity; i += 1) {
-      teamOfAll.push({ position: generatePosition(playerPosition), character: generateTeam(team, maxLevel, plauersUnitsQuantity) });
-    }
-    this.redrawPositions(teamOfAll);
+    createTeam(theme, this);
   }
 
 
